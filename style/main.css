@@ -1,0 +1,8 @@
+body {
+  background: black;
+  color:white;
+  font-weight: bold;
+}
+.process-item:hover{
+  background-color: purple;
+}

@@ -2,11 +2,47 @@
 <html ng-app="processApp">
   <head>
     <meta charset="utf-8">
+    <link rel="stylesheet" href="/style/main.css" media="screen" title="no title">
+    <!-- <script src="/socket.io/socket.io.js"></script> -->
+    <script type="text/javascript" src="./lib/angular.min.js"></script>
+    <script type="text/javascript" src="https://cdn.rawgit.com/gdi2290/angular-websocket/v1.0.9/angular-websocket.min.js"></script>
+    <!-- <script src="http://192.81.220.97:3000/socket.io/socket.io.js"></script> -->
+    <script src="http://localhost:3000/socket.io/socket.io.js"></script>
     <title></title>
   </head>
-  <body>
-    <script type="text/javascript" src="./lib/angular.min.js"></script>
+  <body ng-controller="MainCtrl">
+    {{MyData}}
+    <table>
+      <thead>
+
+      </thead>
+      <tbody>
+        <label>Search by process name: <input ng-model="searchQuery"></label>
+        <tr>
+          <th ng-click="sortBy('PID')">PID</th>
+          <th ng-click="sortBy('UID')">UID</th>
+          <th ng-click="sortBy('CPU')">CPU</th>
+          <th ng-click="sortBy('TIME')">TIME</th>
+          <th ng-click="sortBy('STIME')">STIME</th>
+          <th ng-click="sortBy('CMD')">Command</th>
+        </tr>
+        <tr class="process-item" ng-repeat="process in processes | filter:searchQuery | orderBy:propertyName:reverse">
+          <td>{{process.PID}}</td>
+          <td>{{process.UID}}</td>
+          <td>{{process.CPU}}</td>
+          <td>{{process.TIME}}</td>
+          <td>{{process.STIME}}</td>
+          <td>{{process.CMD}}</td>
+          <td>
+            <button type="button" name="button" >kill</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+
+
     <script type="text/javascript" src="./app/app.js"></script>
-    <script type="text/javascript" src="./app/controllers/mainCtrl.js"></script>
+    <script type="text/javascript" src="./app/services/CommonService.js"></script>
+    <script type="text/javascript" src="./app/controllers/MainCtrl.js"></script>
   </body>
 </html>
