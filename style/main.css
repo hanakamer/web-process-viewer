@@ -6,3 +6,8 @@ body {
 .process-item:hover{
   background-color: purple;
 }
+.selected {
+    background-color:grey;
+    color:white;
+    font-weight:bold;
+}

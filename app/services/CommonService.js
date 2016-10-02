@@ -11,6 +11,8 @@ angular
     items : [],
   };
 
+  var _detail ={};
+
   this.onChange = function(fn) {
     _listeners.push(fn);
   }
@@ -28,13 +30,22 @@ angular
   }
 
   socket.on('data', function(data){
-    console.log(data);
     data = data.map(function(item){
       item.PID =  parseInt(item.PID);
       return item;
     });
     self.setData({ items : data });
-  })
+  });
+
+  this.killProcess = function(pid){
+    socket.emit('kill', pid)
+  }
+  this.monitorDetail =function(cb,pid){
+    socket.emit('detail', pid)
+    socket.on('detail', function(data){
+       cb(data);
+    })
+  }
   // function mockGenerator() {
   //   var newItems = [];
   //

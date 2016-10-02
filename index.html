@@ -11,7 +11,7 @@
     <title></title>
   </head>
   <body ng-controller="MainCtrl">
-    {{MyData}}
+    {{detail}}
     <table>
       <thead>
 
@@ -19,22 +19,22 @@
       <tbody>
         <label>Search by process name: <input ng-model="searchQuery"></label>
         <tr>
+          <th>
+            #
+          </th>
           <th ng-click="sortBy('PID')">PID</th>
-          <th ng-click="sortBy('UID')">UID</th>
-          <th ng-click="sortBy('CPU')">CPU</th>
           <th ng-click="sortBy('TIME')">TIME</th>
-          <th ng-click="sortBy('STIME')">STIME</th>
           <th ng-click="sortBy('CMD')">Command</th>
         </tr>
-        <tr class="process-item" ng-repeat="process in processes | filter:searchQuery | orderBy:propertyName:reverse">
-          <td>{{process.PID}}</td>
-          <td>{{process.UID}}</td>
-          <td>{{process.CPU}}</td>
-          <td>{{process.TIME}}</td>
-          <td>{{process.STIME}}</td>
-          <td>{{process.CMD}}</td>
+        <tr ng-click="getDetail(process, $index)" class="process-item" ng-repeat="process in processes | filter:searchQuery | orderBy:propertyName:reverse" ng-class="{'selected':$index == selectedRow}">
           <td>
-            <button type="button" name="button" >kill</button>
+            {{$index}}
+          </td>
+          <td>{{process.PID}}</td>
+          <td>{{process.TIME}}</td>
+          <td>{{process.CMD | cut:true:100:' ...'}}</td>
+          <td>
+            <button ng-click="kill(process)" type="button" name="button" >kill</button>
           </td>
         </tr>
       </tbody>
