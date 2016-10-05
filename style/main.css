@@ -11,3 +11,9 @@ body {
     color:white;
     font-weight:bold;
 }
+.bar {
+  background:grey;
+}
+.bar-container{
+  display: block;
+}

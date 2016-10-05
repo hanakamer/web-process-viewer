@@ -40,12 +40,10 @@ angular
   this.killProcess = function(pid){
     socket.emit('kill', pid)
   }
-  this.monitorDetail =function(cb,pid){
-    socket.emit('detail', pid)
-    socket.on('detail', function(data){
-       cb(data);
-    })
-  }
+  socket.on('killed', function(data){
+    console.log("killed " + data);
+  })
+
   // function mockGenerator() {
   //   var newItems = [];
   //

@@ -3,15 +3,28 @@
   <head>
     <meta charset="utf-8">
     <link rel="stylesheet" href="/style/main.css" media="screen" title="no title">
-    <!-- <script src="/socket.io/socket.io.js"></script> -->
-    <script type="text/javascript" src="./lib/angular.min.js"></script>
-    <script type="text/javascript" src="https://cdn.rawgit.com/gdi2290/angular-websocket/v1.0.9/angular-websocket.min.js"></script>
-    <!-- <script src="http://192.81.220.97:3000/socket.io/socket.io.js"></script> -->
-    <script src="http://localhost:3000/socket.io/socket.io.js"></script>
     <title></title>
   </head>
+
   <body ng-controller="MainCtrl">
-    {{detail}}
+    <div>
+        <d3-bars data="cpuData.data" label="cpu"></d3-bars>
+        <span ng-bind="cpuData.data + '%'"></span>
+    </div>
+    <div>
+        <d3-bars data="memData.data" label="mem"></d3-bars>
+        <span ng-bind="memData.kb + 'KB'"></span>
+    </div>
+
+    <div ng-if="detail.mem">
+
+    </div>
+    <div ng-if="detail.cpu">
+      CPU = {{detail.cpu}}%
+    </div>
+    <div class="detail-container">
+      {{detail[0]["%CPU"]}}
+    </div>
     <table>
       <thead>
 
@@ -22,26 +35,36 @@
           <th>
             #
           </th>
+          <th ng-click="sortBy('USER')">USER</th>
           <th ng-click="sortBy('PID')">PID</th>
           <th ng-click="sortBy('TIME')">TIME</th>
           <th ng-click="sortBy('CMD')">Command</th>
+          <th>
+            kill
+          </th>
         </tr>
-        <tr ng-click="getDetail(process, $index)" class="process-item" ng-repeat="process in processes | filter:searchQuery | orderBy:propertyName:reverse" ng-class="{'selected':$index == selectedRow}">
+        <tr ng-click="getDetailPID(process)" class="process-item" ng-repeat="process in processes | filter:searchQuery | orderBy:propertyName:reverse" ng-class="{'selected':process.PID == detailPID}">
           <td>
             {{$index}}
           </td>
+          <td>{{process.USER}}</td>
           <td>{{process.PID}}</td>
           <td>{{process.TIME}}</td>
-          <td>{{process.CMD | cut:true:100:' ...'}}</td>
+          <td>{{process.COMMAND | cut:true:100:' ...'}}</td>
           <td>
             <button ng-click="kill(process)" type="button" name="button" >kill</button>
           </td>
         </tr>
       </tbody>
     </table>
-
-
+    <script src="http://d3js.org/d3.v3.min.js" charset="utf-8"></script>
+    <script type="text/javascript" src="https://code.angularjs.org/1.5.8/angular.min.js"></script>
+    <script type="text/javascript" src="https://cdn.rawgit.com/gdi2290/angular-websocket/v1.0.9/angular-websocket.min.js"></script>
+    <!-- <script src="http://192.81.220.97:3000/socket.io/socket.io.js"></script> -->
+    <script src="http://localhost:3000/socket.io/socket.io.js"></script>
     <script type="text/javascript" src="./app/app.js"></script>
+    <script type="text/javascript" src="./app/modules/d3.js"></script>
+    <script type="text/javascript" src="./app/directives/d3Directives.js"></script>
     <script type="text/javascript" src="./app/services/CommonService.js"></script>
     <script type="text/javascript" src="./app/controllers/MainCtrl.js"></script>
   </body>

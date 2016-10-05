@@ -1,4 +1,5 @@
 var app = angular.module('processApp',['ngWebSocket']);
+
 app.filter('cut', function () {
         return function (value, wordwise, max, tail) {
             if (!value) return '';
