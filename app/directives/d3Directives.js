@@ -38,7 +38,7 @@ app.directive('d3Bars',function($parse){
             .enter()
             .append("rect")
             .style({
-              fill:"red"
+              fill:"#FF0080"
             })
             .attr("height", 18)
             .attr("width", 1)
@@ -55,7 +55,7 @@ app.directive('d3Bars',function($parse){
             .data(data)
             .enter()
             .append("text")
-            .attr("fill", "white")
+            .attr("fill", "#fbf1c7")
             .attr('y', 15)
             .attr('x', 2)
             .text(function(d){

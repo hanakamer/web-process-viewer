@@ -1,5 +1,4 @@
 app.controller('MainCtrl', function($scope, processService, $websocket) {
-  $scope.detailPID = '';
   $scope.processes = processService.getData().items;;
 
   processService.onChange(function(data) {
@@ -10,14 +9,14 @@ app.controller('MainCtrl', function($scope, processService, $websocket) {
   $scope.detailPID = 1;
 
   $scope.propertyName = 'PID';
-  $scope.reverse = true;
+  $scope.reverse = false;
   $scope.sortBy = function(propertyName){
     $scope.reverse = ($scope.propertyName === propertyName) ? !$scope.reverse : false;
     $scope.propertyName = propertyName;
   };
 
   $scope.kill = function(process){
-    processService.killProcess(process.PID)
+    processService.killProcess(process)
   }
   $scope.getDetailPID = function(process){
     $scope.detailPID = process.PID;
@@ -26,20 +25,30 @@ app.controller('MainCtrl', function($scope, processService, $websocket) {
     $scope.detail = $scope.processes.filter(function(data){
       return data.PID === $scope.detailPID
     });
-    $scope.cpuData = { data: []};
-    $scope.cpuData.data.push($scope.detail[0]['%CPU']);
-    $scope.memData = { data: [], kb:[]};
+
+    $scope.detailData = {
+      cpu: [],
+      mem: {
+        prc:[],
+        kb: []
+      },
+      user: '',
+      cmd: ''
+    };
+
     var mem = $scope.detail[0]['%MEM'];
     mem = mem.split("  ")
-    $scope.memData.data.push(mem[0]);
-    $scope.memData.kb.push(mem[1]);
-  }
 
+    $scope.detailData.cpu.push($scope.detail[0]['%CPU']);
+    $scope.detailData.mem.prc.push(mem[0]);
+    $scope.detailData.mem.kb.push(mem[1]);
+    $scope.detailData.user = $scope.detail[0]['USER'];
+    $scope.detailData.cmd = $scope.detail[0]['COMMAND'];
+
+  }
 
   $scope.$watch('processes', function(newVal, oldVal){
     $scope.getDetail()
   }, true);
-
   
-
 });

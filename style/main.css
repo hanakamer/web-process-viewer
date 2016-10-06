@@ -1,19 +1,112 @@
+@font-face {
+    font-family: "typewriter";
+    src: url(./fonts/typewriter.ttf) format("truetype");
+}
 body {
-  background: black;
-  color:white;
+  background: #282828;
+  color:#fbf1c7;
   font-weight: bold;
+  font-family: 'typewriter';
+
+}
+.main-container{
+  width:940px;
+  margin: 0 auto;
+}
+
+.process-table {
+  margin-top:40px;
+  width: 100%;
+}
+.clear {
+  clear: both;
 }
 .process-item:hover{
-  background-color: purple;
+  background-color: #800080;
+  cursor: pointer;
+}
+.process-item:hover td:hover{
+  background-color: #800080;
 }
 .selected {
-    background-color:grey;
-    color:white;
+    background-color:#665c54;
+    color: #FF0080;
     font-weight:bold;
 }
+
 .bar {
-  background:grey;
+  background:#665c54;
 }
 .bar-container{
   display: block;
+}
+.details-chart {
+  float: left;
+}
+.detail-item-container {
+  float: left;
+  width: 33%;
+}
+.detail-pid-container{
+  width: 22%
+}
+.detail-name-conatiner {
+  width: 46%
+}
+input {
+  background: transparent;
+  border: none;
+  font-family: 'typewriter';
+  font-size: 24px;
+  outline: none;
+  color:  #FF0080;
+}
+.search-input{
+    padding: 10px;
+    text-shadow: 0px 0px 0px #000;
+    -webkit-text-fill-color:  #FF0080;
+}
+.search-input::-webkit-input-placeholder{
+    text-shadow: none;
+}
+.detail-item {
+  font-size: 28px;
+  margin:0;
+}
+.cmd-container{
+  margin:20px 0;
+  display: inline-flex;
+  height: 35px;
+}
+.cmd-label {
+  height: 35px;
+  line-height: 35px;
+  margin-left: 15px;
+}
+.copy-button  {
+  margin: auto 5px;
+  height: 30px;
+  width: 30px;
+  background-image: url('copyicon.png');
+  background-size: 30px 30px;
+  background-repeat: no-repeat;
+  border: none;
+  background-color: transparent;
+  cursor: pointer;
+}
+.copy-button:hover{
+  background-color: #FF0080;
+}
+.copy-input {
+  border:1px solid #FF0080;
+}
+.kill-button {
+  height: 50px;
+  width: 50px;
+  background-image: url('waterpistol.png');
+  background-size: 50px 50px;
+  background-repeat: no-repeat;
+  border: none;
+  background-color: transparent;
+  cursor: pointer;
 }

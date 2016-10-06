@@ -1,4 +1,4 @@
-var app = angular.module('processApp',['ngWebSocket']);
+var app = angular.module('processApp',['ngWebSocket', 'ngclipboard']);
 
 app.filter('cut', function () {
         return function (value, wordwise, max, tail) {
@@ -12,7 +12,6 @@ app.filter('cut', function () {
             if (wordwise) {
                 var lastspace = value.lastIndexOf(' ');
                 if (lastspace != -1) {
-                  //Also remove . and , so its gives a cleaner result.
                   if (value.charAt(lastspace-1) == '.' || value.charAt(lastspace-1) == ',') {
                     lastspace = lastspace - 1;
                   }

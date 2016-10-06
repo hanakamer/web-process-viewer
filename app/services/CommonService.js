@@ -2,8 +2,8 @@ angular
 .module('processApp')
 .service('processService', function () {
   self = this;
-  // var socket = io.connect('http://192.81.220.97:3000');
-  var socket = io.connect('http://localhost:3000');
+  var socket = io.connect('http://192.81.220.97:3000');
+  // var socket = io.connect('http://localhost:3000');
 
   var _listeners = [];
 
@@ -30,6 +30,7 @@ angular
   }
 
   socket.on('data', function(data){
+    console.log(data);
     data = data.map(function(item){
       item.PID =  parseInt(item.PID);
       return item;
@@ -37,41 +38,11 @@ angular
     self.setData({ items : data });
   });
 
-  this.killProcess = function(pid){
-    socket.emit('kill', pid)
+  this.killProcess = function(process){
+    socket.emit('kill', process)
   }
   socket.on('killed', function(data){
     console.log("killed " + data);
   })
 
-  // function mockGenerator() {
-  //   var newItems = [];
-  //
-  //   for (var i = 0; i <= Math.random() * 100; i++) {
-  //     newItems.push(
-  //       generateRandomProcess()
-  //     );
-  //   }
-  //
-  //   this.setData({ items : newItems });
-  //
-  //   setTimeout(
-  //     mockGenerator.bind(this),
-  //     Math.random() * 20000
-  //   );
-  // }
-  //
-  // function generateRandomProcess() {
-  //   var users = ['root','system'];
-  //   var commands = ['firefox', 'chrome', 'gnome-terminal','init'];
-  //
-  //   return {
-  //     pid: Math.floor((Math.random() * 100) + 1),
-  //     CPU: Math.floor((Math.random()) + 1),
-  //     user: users[ Math.floor(Math.random() * users.length) ],
-  //     command: commands[ Math.floor(Math.random() * commands.length) ],
-  //   };
-  // }
-  //
-  // mockGenerator.call(this);
 });

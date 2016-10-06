@@ -5,63 +5,69 @@
     <link rel="stylesheet" href="/style/main.css" media="screen" title="no title">
     <title></title>
   </head>
-
   <body ng-controller="MainCtrl">
-    <div>
-        <d3-bars data="cpuData.data" label="cpu"></d3-bars>
-        <span ng-bind="cpuData.data + '%'"></span>
-    </div>
-    <div>
-        <d3-bars data="memData.data" label="mem"></d3-bars>
-        <span ng-bind="memData.kb + 'KB'"></span>
-    </div>
+    <div class="main-container">
+      <header>
+        <div class="details-container">
+          <div class="detail-item-container">
+            <div>
+                <d3-bars data="detailData.cpu" label="cpu"></d3-bars>
+                <span ng-bind="cpuData.data + '%'"></span>
+            </div>
+            <div>
+                <d3-bars data="detailData.mem.prc" label="mem"></d3-bars>
+                <span ng-bind="detailData.mem.kb + 'KB'"></span>
+            </div>
+          </div>
+          <div class="detail-item-container detail-pid-container">
+            <p class="detail-item" ng-bind="'PID : ' + detailPID "></p>
+          </div>
+          <div class="detail-item-container detail-name-container">
+            <p class="detail-item" ng-bind="'USER : ' + detailData.user "></p>
+          </div>
+            <div class="clear"></div>
+        </div>
+        <div class="cmd-container">
+          <button class="btn copy-button" ngclipboard data-clipboard-target="#cmd">
+          </button>
+          <input class="copy-input" readonly dir="rtl" id="cmd" ng-model="detailData.cmd" name="name">
+          <label class="cmd-label" for="cmd"> : COMMAND</label>
+        </div>
+        <div class="details-search">
+          <label class="search-item">Search by process name: <input autofocus class="search-input" ng-model="searchQuery"></label>
+        </div>
+      </header>
 
-    <div ng-if="detail.mem">
-
+      <table cellspacing="0" class="process-table">
+        <tbody>
+          <tr>
+            <th ng-click="sortBy('USER')">USER</th>
+            <th ng-click="sortBy('PID')">PID</th>
+            <th ng-click="sortBy('TIME')">TIME</th>
+            <th ng-click="sortBy('CMD')">Command</th>
+            <th>
+              kill
+            </th>
+          </tr>
+          <tr ng-click="getDetailPID(process)" class="process-item" ng-repeat="process in processes | filter:searchQuery | orderBy:propertyName:reverse" ng-class="{'selected':process.PID == detailPID}">
+            <td>{{process.USER}}</td>
+            <td>{{process.PID}}</td>
+            <td>{{process.TIME}}</td>
+            <td>{{process.COMMAND | cut:true:25:' ...'}}</td>
+            <td>
+              <input class="kill-button" ng-click="kill(process)" type="button" name="button" ></input>
+            </td>
+          </tr>
+        </tbody>
+      </table>
     </div>
-    <div ng-if="detail.cpu">
-      CPU = {{detail.cpu}}%
-    </div>
-    <div class="detail-container">
-      {{detail[0]["%CPU"]}}
-    </div>
-    <table>
-      <thead>
-
-      </thead>
-      <tbody>
-        <label>Search by process name: <input ng-model="searchQuery"></label>
-        <tr>
-          <th>
-            #
-          </th>
-          <th ng-click="sortBy('USER')">USER</th>
-          <th ng-click="sortBy('PID')">PID</th>
-          <th ng-click="sortBy('TIME')">TIME</th>
-          <th ng-click="sortBy('CMD')">Command</th>
-          <th>
-            kill
-          </th>
-        </tr>
-        <tr ng-click="getDetailPID(process)" class="process-item" ng-repeat="process in processes | filter:searchQuery | orderBy:propertyName:reverse" ng-class="{'selected':process.PID == detailPID}">
-          <td>
-            {{$index}}
-          </td>
-          <td>{{process.USER}}</td>
-          <td>{{process.PID}}</td>
-          <td>{{process.TIME}}</td>
-          <td>{{process.COMMAND | cut:true:100:' ...'}}</td>
-          <td>
-            <button ng-click="kill(process)" type="button" name="button" >kill</button>
-          </td>
-        </tr>
-      </tbody>
-    </table>
     <script src="http://d3js.org/d3.v3.min.js" charset="utf-8"></script>
     <script type="text/javascript" src="https://code.angularjs.org/1.5.8/angular.min.js"></script>
     <script type="text/javascript" src="https://cdn.rawgit.com/gdi2290/angular-websocket/v1.0.9/angular-websocket.min.js"></script>
-    <!-- <script src="http://192.81.220.97:3000/socket.io/socket.io.js"></script> -->
-    <script src="http://localhost:3000/socket.io/socket.io.js"></script>
+    <script src="https://cdn.rawgit.com/zenorocha/clipboard.js/master/dist/clipboard.min.js"></script>
+    <script type="text/javascript" src="./lib/ngclipboard.js"></script>
+    <script src="http://192.81.220.97:3000/socket.io/socket.io.js"></script>
+    <!-- <script src="http://localhost:3000/socket.io/socket.io.js"></script> -->
     <script type="text/javascript" src="./app/app.js"></script>
     <script type="text/javascript" src="./app/modules/d3.js"></script>
     <script type="text/javascript" src="./app/directives/d3Directives.js"></script>
