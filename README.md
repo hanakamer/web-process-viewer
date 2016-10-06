@@ -1,5 +1,5 @@
 # web-process-viewer
-server process viewer web application: simple web application of htop
+server process viewer web application: simple web application of [htop](http://hisham.hm/htop/)
 
 You can simply download the repo and run it on your local server where index.html is located.
 
