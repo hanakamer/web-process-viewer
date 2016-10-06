@@ -1,3 +1,5 @@
+![preview](https://github.com/hanakamer/web-process-viewer/blob/master/preview.gif)
+
 # web-process-viewer
 server process viewer web application: simple web application of [htop](http://hisham.hm/htop/)
 
