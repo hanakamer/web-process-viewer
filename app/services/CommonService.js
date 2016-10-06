@@ -2,7 +2,7 @@ angular
 .module('processApp')
 .service('processService', function () {
   self = this;
-  var socket = io.connect('https://192.81.220.97:3000');
+  var socket = io.connect('http://192.81.220.97:3000');
   // var socket = io.connect('http://localhost:3000');
 
   var _listeners = [];
