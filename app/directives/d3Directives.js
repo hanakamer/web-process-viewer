@@ -47,7 +47,6 @@ app.directive('d3Bars',function($parse){
             .transition()
             .duration(10)
             .attr("width", function(d){
-              console.log(d);
                return d * 2 / (max / width);
             });
 

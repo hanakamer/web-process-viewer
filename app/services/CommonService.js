@@ -30,7 +30,6 @@ angular
   }
 
   socket.on('data', function(data){
-    console.log(data);
     data = data.map(function(item){
       item.PID =  parseInt(item.PID);
       return item;
@@ -41,8 +40,8 @@ angular
   this.killProcess = function(process){
     socket.emit('kill', process)
   }
-  socket.on('killed', function(data){
-    console.log("killed " + data);
+  socket.on('msg', function(msg){
+    console.log("msg " + msg);
   })
 
 });
