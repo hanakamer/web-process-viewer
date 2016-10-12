@@ -31,7 +31,13 @@ angular
 
   socket.on('data', function(data){
     data = data.map(function(item){
-      item.PID =  parseInt(item.PID);
+      console.log(item);
+      item.PID =  parseInt(item.PID[1]);
+      item.USER = item.USER[0];
+      item['%CPU'] = item['%CPU'][0];
+      item['%MEM'] = item['%MEM'][0];
+      item.COMMAND = item.COMMAND.join(' ');
+      item.TIME = item.TIME[0];
       return item;
     });
     self.setData({ items : data });
