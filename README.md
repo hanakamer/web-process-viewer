@@ -1,3 +1,5 @@
+![preview](https://github.com/hanakamer/web-process-viewer/blob/master/preview.gif)
+
 # web-process-viewer
 server process viewer web application: simple web application of [htop](http://hisham.hm/htop/)
 
@@ -5,7 +7,7 @@ You can simply download the repo and run it on your local server where index.htm
 
 The application makes socket connection with the server and shows the processes running on the server.
 
-Each process can be monitored (cpu% and mem%) by cliking on it.
+Each process can be monitored (cpu% and mem%) by clicking on it.
 
 Each process can be killed by clicking on its gun button.
 
